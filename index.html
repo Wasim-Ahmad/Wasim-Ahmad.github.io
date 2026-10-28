@@ -5,426 +5,371 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wasim Ahmad — UAV Communications &amp; Machine Learning</title>
 <meta name="description" content="Wasim Ahmad, PhD in Computer Science, NUAA Nanjing. Research on UAV channel modelling, Internet of UAV Things, LLM-integrated communications, and deep learning for network security.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#E9ECE8;
-  --surface:#F3F5F1;
-  --ink:#15211C;
-  --muted:#5C6B63;
-  --rule:#CAD2CA;
-  --signal:#0E6B63;
-  --signal-soft:#DBE7E3;
-  --maxw:68rem;
+  --blue:#2B579A;
+  --blue-dark:#1F4278;
+  --blue-link:#2563A8;
+  --text:#333A45;
+  --muted:#6B7280;
+  --line:#E3E8EF;
+  --card:#F7F9FC;
+  --green-bg:#E6F4EA;
+  --green-tx:#1E7A3D;
+  --grey-bg:#EEF1F5;
+  --grey-tx:#55606E;
+  --maxw:1180px;
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --paper:#101A17;--surface:#16221E;--ink:#E4EAE5;--muted:#91A299;
-    --rule:#27352F;--signal:#5CC6B5;--signal-soft:#1B2E29;
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#101A17;--surface:#16221E;--ink:#E4EAE5;--muted:#91A299;
-  --rule:#27352F;--signal:#5CC6B5;--signal-soft:#1B2E29;
-}
-
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:4rem}
+html{scroll-behavior:smooth;scroll-padding-top:70px;-webkit-text-size-adjust:100%}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{
-  margin:0;background:var(--paper);color:var(--ink);
-  font-family:"Newsreader",Georgia,serif;font-size:1.0625rem;line-height:1.65;
-  font-optical-sizing:auto;
+  margin:0;background:#fff;color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:15px;line-height:1.65;
 }
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.5rem}
-@media(min-width:60rem){.wrap{padding:0 3rem}}
-a{color:inherit;text-decoration:none}
-a:focus-visible,button:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+a{color:var(--blue-link);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 
 /* ---------- nav ---------- */
-nav{
-  position:sticky;top:0;z-index:20;
-  background:color-mix(in srgb,var(--paper) 90%,transparent);
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--rule);
+.topbar{position:sticky;top:0;z-index:50;background:var(--blue);color:#fff}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:56px}
+.brand{font-weight:700;font-size:16px;color:#fff}
+.brand:hover{text-decoration:none}
+.topnav{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{color:#fff;font-size:14px;white-space:nowrap;opacity:.92}
+.topnav a:hover{opacity:1;text-decoration:underline}
+@media(max-width:720px){
+  .topbar .wrap{height:auto;flex-direction:column;align-items:flex-start;padding-top:12px;padding-bottom:12px;gap:8px}
+  .topnav{width:100%;gap:16px}
 }
-nav .wrap{display:flex;gap:1.5rem;overflow-x:auto;padding-top:.8rem;padding-bottom:.8rem;scrollbar-width:none}
-nav .wrap::-webkit-scrollbar{display:none}
-nav a{
-  font-family:"Inter",system-ui,sans-serif;font-size:.8rem;color:var(--muted);
-  white-space:nowrap;border-bottom:1px solid transparent;padding-bottom:2px;
-}
-nav a:hover{color:var(--signal);border-color:var(--signal)}
 
-/* ---------- hero ---------- */
-.hero{padding:4rem 0 0}
-.hero-top{display:flex;flex-direction:column;align-items:flex-start;gap:1.75rem}
+/* ---------- headings ---------- */
+h2.sec{
+  font-size:22px;font-weight:700;color:#222A35;margin:0 0 24px;
+  display:flex;align-items:center;gap:10px;
+}
+h2.sec::before{content:"";width:4px;height:22px;background:var(--blue);border-radius:1px;flex:none}
+h3{margin:0 0 4px;font-size:15px;font-weight:700;color:#222A35}
+.subhead{font-size:16px;font-weight:700;color:#222A35;margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+section{padding:46px 0}
+section+section{border-top:1px solid var(--line)}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;gap:40px}
+@media(min-width:900px){.about-grid{grid-template-columns:320px 1fr;gap:56px}}
+
+.idcard{text-align:center}
 .portrait{
-  width:112px;height:auto;display:block;flex:none;
-  border-radius:3px;border:1px solid var(--rule);
+  width:200px;height:200px;border-radius:50%;object-fit:cover;object-position:center 18%;
+  border:1px solid var(--line);display:block;margin:0 auto 18px;
 }
-@media(min-width:48rem){
-  .hero-top{flex-direction:row-reverse;justify-content:space-between;gap:3rem}
-  .portrait{width:172px}
-  .hero-text{flex:1;min-width:0}
+.idcard .name{font-size:19px;font-weight:700;color:#222A35;margin:0 0 6px}
+.idcard .role{font-size:14px;color:var(--muted);margin:0;line-height:1.5}
+.idcard .place{font-size:14px;color:#222A35;font-weight:600;margin:6px 0 0}
+.idlinks{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
+.idlinks a{
+  font-size:13px;padding:4px 11px;border:1px solid var(--line);border-radius:999px;background:var(--card);
 }
-.hero h1{font-size:clamp(3rem,10.5vw,6.5rem);font-weight:400;line-height:.94;letter-spacing:-.025em;margin:0 0 .6rem}
-.hero h1 em{font-style:italic;font-weight:300}
-.role{font-size:1.15rem;color:var(--muted);margin:0 0 1.5rem}
-.lede{font-size:clamp(1.2rem,2.6vw,1.6rem);line-height:1.45;font-weight:300;max-width:34ch;margin:0 0 2rem}
-.hero-meta{
-  font-family:"Inter",system-ui,sans-serif;font-size:.82rem;color:var(--muted);
-  display:flex;flex-wrap:wrap;gap:.45rem 1.5rem;margin:0 0 2.5rem;
-}
-.hero-meta a{border-bottom:1px solid var(--rule);padding-bottom:1px}
-.hero-meta a:hover{border-color:var(--signal);color:var(--signal)}
+.idlinks a:hover{text-decoration:none;border-color:var(--blue);background:#fff}
 
-.diagram{display:block;width:100%;height:auto;margin:1rem 0 0;overflow:visible}
-.terrain-far{fill:var(--rule);opacity:.55}
-.terrain-near{fill:var(--signal-soft)}
-.ray{stroke:var(--signal);stroke-width:1.1;fill:none;stroke-dasharray:4 4}
-.ray-draw{stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.5s cubic-bezier(.22,.8,.3,1) forwards}
-.ray-draw.r2{animation-delay:.18s}
-.ray-draw.r3{animation-delay:.36s}
-.node{fill:var(--signal)}
-.uav{stroke:var(--ink);stroke-width:1.4;fill:none;stroke-linecap:round}
-@keyframes draw{to{stroke-dashoffset:0}}
-@media (prefers-reduced-motion:reduce){.ray-draw{animation:none;stroke-dashoffset:0;stroke-dasharray:4 4}}
+.bio p{margin:0 0 14px;max-width:72ch}
+.bio p:last-of-type{margin-bottom:0}
+.bio b{color:var(--blue);font-weight:600}
 
-/* ---------- sections ---------- */
-section{padding:4rem 0;border-top:1px solid var(--rule)}
-h2{font-family:"Inter",system-ui,sans-serif;font-size:.78rem;font-weight:500;letter-spacing:.04em;color:var(--signal);margin:0 0 2rem}
-h3{font-size:1.3rem;font-weight:500;line-height:1.3;margin:0 0 .35rem;letter-spacing:-.01em}
-.prose p{max-width:66ch;margin:0 0 1.1rem}
-.prose p:last-child{margin-bottom:0}
+.two{display:grid;gap:32px;margin-top:34px}
+@media(min-width:700px){.two{grid-template-columns:1fr 1fr;gap:44px}}
+.arrowlist{list-style:none;margin:0;padding:0}
+.arrowlist li{position:relative;padding:4px 0 4px 18px;font-size:14.5px}
+.arrowlist li::before{content:"▸";position:absolute;left:0;color:var(--blue);font-size:12px;top:5px}
 
-.grid{display:grid;gap:2.5rem}
-@media(min-width:48rem){
-  .grid-2{grid-template-columns:1fr 1fr;gap:2.5rem 4rem}
-  .grid-3{grid-template-columns:repeat(3,1fr)}
-}
-.sub{font-family:"Inter",system-ui,sans-serif;font-size:.78rem;font-weight:500;color:var(--muted);margin:0 0 1rem}
+.edu{margin-bottom:18px}
+.edu:last-child{margin-bottom:0}
+.edu .deg{font-size:14.5px;font-weight:700;color:#222A35}
+.edu .inst{font-size:14px;font-style:italic;color:var(--muted)}
+.edu .yr{font-size:13.5px;color:var(--muted)}
+.edu .det{font-size:13.5px;color:var(--muted);margin-top:3px}
 
-/* chips */
-.chips{display:flex;flex-wrap:wrap;gap:.5rem}
-.chips span{
-  font-family:"Inter",system-ui,sans-serif;font-size:.82rem;
-  background:var(--surface);border:1px solid var(--rule);padding:.3rem .75rem;border-radius:3px;
-}
+/* ---------- cards ---------- */
+.cards{display:grid;gap:18px}
+@media(min-width:620px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.cards{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:3px;padding:16px 18px}
+.card p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 
-/* research areas */
-.area h3{font-size:1.1rem}
-.area p{margin:.4rem 0 0;color:var(--muted);font-size:.97rem}
+/* ---------- publications ---------- */
+.pubintro{margin:0 0 26px;max-width:80ch}
+.pub{padding:16px 0;border-bottom:1px solid var(--line)}
+.pub:last-of-type{border-bottom:none}
+.pub .t{font-size:15px;font-weight:700;color:#222A35;margin:0 0 3px;line-height:1.45}
+.pub .t a{color:#222A35}
+.pub .t a:hover{color:var(--blue-link)}
+.pub .a{font-size:13.5px;color:var(--muted);margin:0 0 3px}
+.pub .a b{color:var(--text);font-weight:700}
+.pub .v{font-size:13.5px;font-style:italic;color:var(--muted);margin:0 0 9px}
+.badges{display:flex;flex-wrap:wrap;gap:7px}
+.b{font-size:11.5px;padding:3px 9px;border-radius:3px;background:var(--grey-bg);color:var(--grey-tx)}
+.b.ok{background:var(--green-bg);color:var(--green-tx)}
+.b.lead{background:#E8EFF9;color:var(--blue-dark)}
+.reviewer{margin-top:26px;padding:14px 18px;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:3px;font-size:14px}
+.reviewer b{color:#222A35}
 
-/* publications */
-.pub{display:grid;gap:.15rem .5rem;padding:1.6rem 0;border-top:1px solid var(--rule)}
-.pub:first-of-type{border-top:none;padding-top:0}
-@media(min-width:48rem){.pub{grid-template-columns:5.5rem 1fr;gap:0 2.5rem}}
-.pub-year{font-family:"Inter",system-ui,sans-serif;font-size:.8rem;color:var(--muted);padding-top:.35rem}
-.pub-title{font-size:1.18rem;font-weight:500;line-height:1.35;margin:0 0 .4rem;letter-spacing:-.005em}
-.pub-title a{border-bottom:1px solid var(--rule)}
-.pub-title a:hover{border-color:var(--signal);color:var(--signal)}
-.pub-authors{font-size:.95rem;color:var(--muted);margin:0 0 .5rem;max-width:62ch}
-.pub-authors b{font-weight:500;color:var(--ink)}
-.pub-venue{font-size:1rem;font-style:italic;font-weight:300;margin:0 0 .6rem}
-.tags{font-family:"Inter",system-ui,sans-serif;font-size:.74rem;display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center}
-.tag{color:var(--muted);border:1px solid var(--rule);border-radius:999px;padding:.15rem .6rem}
-.tag-lead{color:var(--signal);border-color:var(--signal)}
-.tag-doi{border:none;padding:0;color:var(--muted);font-variant-numeric:tabular-nums}
-.tag-doi:hover{color:var(--signal)}
+/* ---------- experience ---------- */
+.job{margin-bottom:22px}
+.job:last-child{margin-bottom:0}
+.job .h{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline}
+.job .yr{font-size:13.5px;color:var(--muted)}
+.job .org{font-size:14px;color:var(--blue-link);margin:0 0 6px}
+.job p{margin:0;font-size:14px;color:var(--muted);max-width:80ch}
 
-.reviewer{
-  margin-top:2.5rem;padding:1.5rem;background:var(--surface);
-  border:1px solid var(--rule);border-radius:4px;
-}
-.reviewer p{margin:.5rem 0 0;font-size:1rem;max-width:none}
+/* ---------- skills ---------- */
+.skillgroup{margin-bottom:24px}
+.skillgroup:last-child{margin-bottom:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-size:13px;padding:5px 12px;background:var(--card);border:1px solid var(--line);border-radius:3px}
+.langrow{display:flex;justify-content:space-between;gap:16px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+.langrow:last-child{border-bottom:none}
+.langrow .lv{color:var(--muted);font-size:13.5px}
 
-/* entries */
-.entry{padding:1.4rem 0;border-top:1px solid var(--rule)}
-.entry:first-child{border-top:none;padding-top:0}
-@media(min-width:48rem){.entry{display:grid;grid-template-columns:5.5rem 1fr;gap:0 2.5rem}}
-.entry-date{font-family:"Inter",system-ui,sans-serif;font-size:.8rem;color:var(--muted);padding-top:.3rem}
-.entry p{margin:.3rem 0 0;color:var(--muted);font-size:.97rem;max-width:62ch}
-.entry .where{color:var(--ink);font-size:1rem;margin-bottom:.1rem}
+/* ---------- awards ---------- */
+.stars{list-style:none;margin:0;padding:0}
+.stars li{position:relative;padding:7px 0 7px 22px;font-size:14.5px;border-bottom:1px solid var(--line)}
+.stars li:last-child{border-bottom:none}
+.stars li::before{content:"★";position:absolute;left:0;color:var(--blue);font-size:13px;top:8px}
+.stars .n{display:block;color:var(--muted);font-size:13px}
 
-/* lists */
-.plain{list-style:none;margin:0;padding:0}
-.plain li{padding:.6rem 0;border-top:1px solid var(--rule);font-size:1rem}
-.plain li:first-child{border-top:none}
-.plain .note{display:block;color:var(--muted);font-size:.9rem}
+/* ---------- contact ---------- */
+.ccards{display:grid;gap:14px}
+@media(min-width:620px){.ccards{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.ccards{grid-template-columns:repeat(4,1fr)}}
+.ccard{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:3px;padding:12px 16px}
+.ccard .lb{font-size:12px;color:var(--muted);display:block;margin-bottom:2px}
+.ccard .vl{font-size:14px;font-weight:700;color:var(--blue-link);word-break:break-word}
+.note{margin-top:22px;font-size:13.5px;color:var(--muted)}
 
-.langs div{padding:.55rem 0;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:1rem;font-size:1rem}
-.langs div:first-child{border-top:none}
-.langs .lvl{font-family:"Inter",system-ui,sans-serif;font-size:.8rem;color:var(--muted)}
-
-.skillset{margin-bottom:2rem}
-.skillset:last-child{margin-bottom:0}
-
-.contact-links{display:flex;flex-wrap:wrap;gap:.75rem 2rem;font-size:1.05rem;margin:0}
-.contact-links a{border-bottom:1px solid var(--signal);color:var(--signal);padding-bottom:1px}
-
-footer{
-  padding:2.5rem 0 3.5rem;border-top:1px solid var(--rule);
-  font-family:"Inter",system-ui,sans-serif;font-size:.78rem;color:var(--muted);
-  display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;
-}
+footer{border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
 </style>
 </head>
 <body>
 
-<nav>
+<div class="topbar">
   <div class="wrap">
-    <a href="#about">About</a>
-    <a href="#research">Research</a>
-    <a href="#publications">Publications</a>
-    <a href="#education">Education</a>
-    <a href="#experience">Experience</a>
-    <a href="#skills">Skills</a>
-    <a href="#awards">Awards</a>
-    <a href="#contact">Contact</a>
+    <a class="brand" href="#top">Wasim Ahmad</a>
+    <nav class="topnav">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#awards">Awards</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </div>
-</nav>
+</div>
 
-<main class="wrap">
+<main id="top">
 
-  <header class="hero">
-    <div class="hero-top">
-      <img class="portrait" src="photo.jpg" alt="Wasim Ahmad" width="297" height="411">
-      <div class="hero-text">
-        <h1>Wasim<br><em>Ahmad</em></h1>
-        <p class="role">PhD, Computer Science · Nanjing University of Aeronautics and Astronautics</p>
-        <p class="lede">I model the radio links between drones and the ground, and build the learning systems that run on top of them.</p>
-        <p class="hero-meta">
-          <span>Nanjing, China</span>
-          <a href="https://scholar.google.com/citations?user=Ht6afhsAAAAJ&amp;hl=en">Google Scholar</a>
-          <a href="https://www.linkedin.com/in/dr-wasim-ahmad-8b0813304/">LinkedIn</a>
-          <a href="https://github.com/Wasim-Ahmad">GitHub</a>
-        </p>
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+
+        <aside class="idcard">
+          <img class="portrait" src="photo.jpg" alt="Wasim Ahmad" width="200" height="200">
+          <p class="name">Wasim Ahmad</p>
+          <p class="role">PhD, Computer Science<br>UAV Communications &amp; Machine Learning</p>
+          <p class="place">NUAA, Nanjing</p>
+          <div class="idlinks">
+            <a href="mailto:wasimktk88@gmail.com">Email</a>
+            <a href="https://scholar.google.com/citations?user=Ht6afhsAAAAJ&amp;hl=en">Scholar</a>
+            <a href="https://www.linkedin.com/in/dr-wasim-ahmad-8b0813304/">LinkedIn</a>
+            <a href="https://github.com/Wasim-Ahmad">GitHub</a>
+          </div>
+        </aside>
+
+        <div class="bio">
+          <p>I hold a <b>PhD in Computer Science</b> from the Nanjing University of Aeronautics and Astronautics (NUAA), Nanjing. My research sits where unmanned aerial vehicles meet wireless communication, with a particular focus on <b>UAV channel modelling</b>, the <b>Internet of UAV Things</b>, and the application of <b>machine learning and deep learning</b> to the networks themselves.</p>
+          <p>My work addresses how a radio link behaves when one end of it is flying, and how far that link can be pushed in terrain where ground infrastructure is thin or absent — agricultural land, open water, mountainous zones and dense urban environments. More recently I have worked on the integration of <b>large language models</b> into intent-based vehicular communication, and on deep learning for intrusion detection on UAV links. I am looking for postdoctoral positions and research collaboration.</p>
+
+          <div class="two">
+            <div>
+              <p class="subhead">Research Interests</p>
+              <ul class="arrowlist">
+                <li>UAV Communications</li>
+                <li>Channel Modelling &amp; Path Loss</li>
+                <li>Internet of UAV Things</li>
+                <li>LLM Integration in Networks</li>
+                <li>Machine &amp; Deep Learning</li>
+                <li>Network Security</li>
+              </ul>
+            </div>
+            <div>
+              <p class="subhead">Education</p>
+              <div class="edu">
+                <div class="deg">PhD in Computer Science</div>
+                <div class="inst">Nanjing University of Aeronautics and Astronautics</div>
+                <div class="yr">2019 – 2025</div>
+              </div>
+              <div class="edu">
+                <div class="deg">MS in Computer Science</div>
+                <div class="inst">Xi'an Jiaotong University, China</div>
+                <div class="yr">2016 – 2018</div>
+                <div class="det">Grade A · Thesis: Implementation and Performance Analysis of the Layer-3 Redundancy Protocols</div>
+              </div>
+              <div class="edu">
+                <div class="deg">BS (Hons) in Information Technology</div>
+                <div class="inst">University of Agriculture, Peshawar, Pakistan</div>
+                <div class="yr">2012 – 2016</div>
+                <div class="det">Grade A · Thesis: Layer-3 Redundancy</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
-
-    <svg class="diagram" viewBox="0 0 900 220" role="img" aria-label="A UAV at altitude transmitting to three ground stations over layered terrain">
-      <path class="terrain-far" d="M0 180 L90 150 L170 168 L260 132 L350 160 L450 128 L540 158 L640 140 L730 165 L820 142 L900 168 L900 220 L0 220 Z"/>
-      <path class="terrain-near" d="M0 196 L120 182 L230 198 L330 178 L440 196 L560 180 L670 198 L780 184 L900 200 L900 220 L0 220 Z"/>
-      <path class="ray ray-draw" d="M440 46 L150 183"/>
-      <path class="ray ray-draw r2" d="M440 46 L455 193"/>
-      <path class="ray ray-draw r3" d="M440 46 L760 186"/>
-      <circle class="node" cx="150" cy="183" r="3.5"/>
-      <circle class="node" cx="455" cy="193" r="3.5"/>
-      <circle class="node" cx="760" cy="186" r="3.5"/>
-      <g class="uav" transform="translate(440 46)">
-        <line x1="-20" y1="-7" x2="20" y2="7"/>
-        <line x1="-20" y1="7" x2="20" y2="-7"/>
-        <circle cx="-20" cy="-7" r="5"/><circle cx="20" cy="7" r="5"/>
-        <circle cx="-20" cy="7" r="5"/><circle cx="20" cy="-7" r="5"/>
-        <rect x="-6" y="-3.5" width="12" height="7" rx="2"/>
-      </g>
-    </svg>
-  </header>
-
-  <section id="about" class="prose">
-    <h2>About</h2>
-    <p>I hold a PhD in Computer Science from Nanjing University of Aeronautics and Astronautics. My research sits at the point where unmanned aerial vehicles meet wireless communication: how a radio link behaves when one end of it is flying, and how far that link can be pushed in terrain where ground infrastructure is thin or absent.</p>
-    <p>Much of my work has gone into channel modelling for agricultural, maritime, mountainous and dense urban settings, and into the Internet of UAV Things, where collaborative cloud computing carries the load that an aircraft cannot. Alongside that I apply machine and deep learning to the networks themselves — meta-learning for path loss prediction, deep learning for intrusion detection on UAV links, and more recently the integration of large language models into intent-based vehicular and smart-city communication.</p>
-    <p>I am looking for postdoctoral positions and research collaboration, and I am interested in supervising students, writing competitive grant proposals, and producing work that holds up under scrutiny.</p>
-    <p class="sub" style="margin-top:2rem">Research interests</p>
-    <div class="chips">
-      <span>UAV Communications</span><span>Channel Modelling</span><span>Internet of UAV Things</span>
-      <span>LLM Integration</span><span>Machine Learning</span><span>Deep Learning</span>
-      <span>Network Security</span><span>Heterogeneous Networks</span>
     </div>
   </section>
 
   <section id="research">
-    <h2>Research areas</h2>
-    <div class="grid grid-3">
-      <div class="area">
-        <h3>UAV channel modelling</h3>
-        <p>Air-to-ground propagation and path loss across agriculture, maritime, mountainous and urban environments, validated against measured link behaviour.</p>
-      </div>
-      <div class="area">
-        <h3>Internet of UAV Things</h3>
-        <p>Collaborative cloud computing for heterogeneous UAV networks, including coverage and handover optimisation using harmony-search methods.</p>
-      </div>
-      <div class="area">
-        <h3>Learning for wireless networks</h3>
-        <p>Meta-learning applied to path loss prediction, letting a model generalise to a new channel from very few measurements.</p>
-      </div>
-      <div class="area">
-        <h3>LLM-integrated communication</h3>
-        <p>Intent-based vehicle-to-everything systems where a language model turns high-level intent into network policy, under latency and energy constraints.</p>
-      </div>
-      <div class="area">
-        <h3>Network security</h3>
-        <p>Deep learning for intrusion detection on UAV links, and privacy-preserving IoT frameworks built on trigger-action platforms.</p>
-      </div>
-      <div class="area">
-        <h3>Geospatial machine learning</h3>
-        <p>Landslide susceptibility mapping and terrain risk assessment, applying ML to environmental data in mountainous regions.</p>
+    <div class="wrap">
+      <h2 class="sec">Research Areas</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>UAV Channel Modelling</h3>
+          <p>Air-to-ground propagation and path loss across agricultural, maritime, mountainous and urban environments, validated against measured link behaviour.</p>
+        </div>
+        <div class="card">
+          <h3>Internet of UAV Things</h3>
+          <p>Collaborative cloud computing for heterogeneous UAV networks, with coverage and handover optimisation using harmony-search methods.</p>
+        </div>
+        <div class="card">
+          <h3>Learning for Wireless Networks</h3>
+          <p>Meta-learning applied to path loss prediction, letting a model generalise to a new channel from very few measurements.</p>
+        </div>
+        <div class="card">
+          <h3>LLM-Integrated Communication</h3>
+          <p>Intent-based vehicle-to-everything systems where a language model turns high-level intent into network policy under latency and energy constraints.</p>
+        </div>
+        <div class="card">
+          <h3>Network Security</h3>
+          <p>Deep learning for intrusion detection on UAV links, and privacy-preserving IoT frameworks built on trigger-action platforms.</p>
+        </div>
+        <div class="card">
+          <h3>Geospatial Machine Learning</h3>
+          <p>Landslide susceptibility mapping and terrain risk assessment, applying machine learning to environmental data in mountainous regions.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="publications">
-    <h2>Publications</h2>
+    <div class="wrap">
+      <h2 class="sec">Selected Publications</h2>
+      <p class="pubintro">Author of peer-reviewed papers in SCI-indexed journals including IEEE Transactions on Consumer Electronics, Elsevier Vehicular Communications, Computers &amp; Security and Future Generation Computer Systems. See my <a href="https://scholar.google.com/citations?user=Ht6afhsAAAAJ&amp;hl=en">Google Scholar profile</a> for the complete list.</p>
 
-    <article class="pub">
-      <div class="pub-year">2026</div>
-      <div>
-        <h3 class="pub-title">Internet of UAV Things-based Cloud Computing Enhancing Heterogeneous Communication in Urban Environments</h3>
-        <p class="pub-authors"><b>Wasim Ahmad</b>, Farman Ali, Mardeni Roslee</p>
-        <p class="pub-venue">Future Generation Computer Systems · Elsevier</p>
-        <p class="tags"><span class="tag tag-lead">First author</span><span class="tag">SCI · IF 6.1</span><span class="tag">Accepted</span></p>
+      <div class="pub">
+        <p class="t">Internet of UAV Things-based Cloud Computing Enhancing Heterogeneous Communication in Urban Environments</p>
+        <p class="a"><b>Wasim Ahmad</b>, Farman Ali, Mardeni Roslee</p>
+        <p class="v">Future Generation Computer Systems, Elsevier, 2026</p>
+        <div class="badges"><span class="b ok">SCI · Accepted</span><span class="b">IF 6.1</span><span class="b lead">First Author</span></div>
       </div>
-    </article>
 
-    <article class="pub">
-      <div class="pub-year">2025</div>
-      <div>
-        <h3 class="pub-title"><a href="https://doi.org/10.1109/TCE.2025.3593867">IoUT and Collaborative Cloud Computing based UAV Channel Modeling for Agriculture Communication</a></h3>
-        <p class="pub-authors"><b>Wasim Ahmad</b>, Farman Ali, Yasir Ullah, Muhammad Asghar Khan, Mansoor Khan, Salabat Khan, Muhammad Attique Khan</p>
-        <p class="pub-venue">IEEE Transactions on Consumer Electronics</p>
-        <p class="tags"><span class="tag tag-lead">First author</span><span class="tag">SCI · IF 10.9</span><a class="tag-doi" href="https://doi.org/10.1109/TCE.2025.3593867">10.1109/TCE.2025.3593867</a></p>
+      <div class="pub">
+        <p class="t"><a href="https://doi.org/10.1109/TCE.2025.3593867">IoUT and Collaborative Cloud Computing based UAV Channel Modeling for Agriculture Communication</a></p>
+        <p class="a"><b>Wasim Ahmad</b>, Farman Ali, Yasir Ullah, Muhammad Asghar Khan, Mansoor Khan, Salabat Khan, Muhammad Attique Khan</p>
+        <p class="v">IEEE Transactions on Consumer Electronics, 2025</p>
+        <div class="badges"><span class="b ok">SCI · Published</span><span class="b">IF 10.9</span><span class="b">IEEE</span><span class="b lead">First Author</span></div>
       </div>
-    </article>
 
-    <article class="pub">
-      <div class="pub-year">2025</div>
-      <div>
-        <h3 class="pub-title"><a href="https://doi.org/10.1016/j.vehcom.2025.100973">Scalable AI-Driven Intent-Based Vehicle-to-Everything Communications for Secure, Low-Latency and Energy-Efficient Smart Cities</a></h3>
-        <p class="pub-authors"><b>Wasim Ahmad</b>, Farman Ali, Aitizaz Ali</p>
-        <p class="pub-venue">Vehicular Communications · Elsevier</p>
-        <p class="tags"><span class="tag tag-lead">First author</span><span class="tag">SCI · IF 6.5</span><a class="tag-doi" href="https://doi.org/10.1016/j.vehcom.2025.100973">10.1016/j.vehcom.2025.100973</a></p>
+      <div class="pub">
+        <p class="t"><a href="https://doi.org/10.1016/j.vehcom.2025.100973">Scalable AI-Driven Intent-Based Vehicle-to-Everything Communications for Secure, Low-Latency and Energy-Efficient Smart Cities</a></p>
+        <p class="a"><b>Wasim Ahmad</b>, Farman Ali, Aitizaz Ali</p>
+        <p class="v">Vehicular Communications, Elsevier, 2025</p>
+        <div class="badges"><span class="b ok">SCI · Published</span><span class="b">IF 6.5</span><span class="b">Elsevier</span><span class="b lead">First Author</span></div>
       </div>
-    </article>
 
-    <article class="pub">
-      <div class="pub-year">2025</div>
-      <div>
-        <h3 class="pub-title"><a href="https://doi.org/10.1016/j.cose.2025.104675">A New Era of Advanced Privacy Solutions with a Novel IoT Framework on IFTTT</a></h3>
-        <p class="pub-authors"><b>Wasim Ahmad</b>, Aitizaz Ali</p>
-        <p class="pub-venue">Computers &amp; Security · Elsevier</p>
-        <p class="tags"><span class="tag tag-lead">First author</span><span class="tag">SCI · IF 5.4</span><a class="tag-doi" href="https://doi.org/10.1016/j.cose.2025.104675">10.1016/j.cose.2025.104675</a></p>
+      <div class="pub">
+        <p class="t"><a href="https://doi.org/10.1016/j.cose.2025.104675">A New Era of Advanced Privacy Solutions with a Novel IoT Framework on IFTTT</a></p>
+        <p class="a"><b>Wasim Ahmad</b>, Aitizaz Ali</p>
+        <p class="v">Computers &amp; Security, Elsevier, 2025</p>
+        <div class="badges"><span class="b ok">SCI · Published</span><span class="b">IF 5.4</span><span class="b">Elsevier</span><span class="b lead">First Author</span></div>
       </div>
-    </article>
 
-    <article class="pub">
-      <div class="pub-year">2025</div>
-      <div>
-        <h3 class="pub-title">Collaborative Cloud Computing based Internet of UAV Things Implementation with HH Optimization Algorithm for HetNet in Mountainous Zones</h3>
-        <p class="pub-authors"><b>Wasim Ahmad</b>, Yunyoung Nam, Farman Ali, Muhammad Asghar Khan, Mansoor Khan, Muhammad Attique Khan, Jamel Baili</p>
-        <p class="pub-venue">Human-centric Computing and Information Sciences · Springer</p>
-        <p class="tags"><span class="tag tag-lead">First author</span><span class="tag">SCI · IF 3.0</span><span class="tag">Accepted</span></p>
+      <div class="pub">
+        <p class="t">Collaborative Cloud Computing based Internet of UAV Things Implementation with HH Optimization Algorithm for HetNet in Mountainous Zones</p>
+        <p class="a"><b>Wasim Ahmad</b>, Yunyoung Nam, Farman Ali, Muhammad Asghar Khan, Mansoor Khan, Muhammad Attique Khan, Jamel Baili</p>
+        <p class="v">Human-centric Computing and Information Sciences, Springer, 2025</p>
+        <div class="badges"><span class="b ok">SCI · Accepted</span><span class="b">IF 3.0</span><span class="b">Springer</span><span class="b lead">First Author</span></div>
       </div>
-    </article>
 
-    <article class="pub">
-      <div class="pub-year">2025</div>
-      <div>
-        <h3 class="pub-title">Path Loss Prediction Analysis for UAV to Maritime Channel Model using Meta Learning</h3>
-        <p class="pub-authors">Naeem Ahmed, Farman Ali, <b>Wasim Ahmad</b>, Yasir Ullah, Mardeni Roslee, Shabeer Ahmad</p>
-        <p class="pub-venue">6th Multimedia University Engineering Conference (MECON 2025) · Malaysia</p>
-        <p class="tags"><span class="tag">Conference</span><span class="tag tag-lead">Best paper presentation</span></p>
+      <div class="pub">
+        <p class="t">Path Loss Prediction Analysis for UAV to Maritime Channel Model using Meta Learning</p>
+        <p class="a">Naeem Ahmed, Farman Ali, <b>Wasim Ahmad</b>, Yasir Ullah, Mardeni Roslee, Shabeer Ahmad</p>
+        <p class="v">6th Multimedia University Engineering Conference (MECON 2025), Malaysia</p>
+        <div class="badges"><span class="b">Conference</span><span class="b lead">Best Paper Presentation</span></div>
       </div>
-    </article>
 
-    <article class="pub">
-      <div class="pub-year">2024</div>
-      <div>
-        <h3 class="pub-title"><a href="https://doi.org/10.1109/WCCCT60665.2024.10541665">Deep Learning Based Network Intrusion Detection for Unmanned Aerial Vehicles</a></h3>
-        <p class="pub-authors"><b>Wasim Ahmad</b>, Mohammed Amin Almaiah, Aitizaz Ali, Mahmood A. Al-Shareeda</p>
-        <p class="pub-venue">7th World Conference on Computing and Communication Technologies (WCCCT 2024) · IEEE</p>
-        <p class="tags"><span class="tag tag-lead">First author</span><span class="tag">Conference</span><a class="tag-doi" href="https://doi.org/10.1109/WCCCT60665.2024.10541665">10.1109/WCCCT60665.2024.10541665</a></p>
+      <div class="pub">
+        <p class="t"><a href="https://doi.org/10.1109/WCCCT60665.2024.10541665">Deep Learning Based Network Intrusion Detection for Unmanned Aerial Vehicles</a></p>
+        <p class="a"><b>Wasim Ahmad</b>, Mohammed Amin Almaiah, Aitizaz Ali, Mahmood A. Al-Shareeda</p>
+        <p class="v">7th World Conference on Computing and Communication Technologies (WCCCT 2024), IEEE</p>
+        <div class="badges"><span class="b ok">Published</span><span class="b">IEEE</span><span class="b lead">First Author</span></div>
       </div>
-    </article>
 
-    <article class="pub">
-      <div class="pub-year">2024</div>
-      <div>
-        <h3 class="pub-title">Landslide Susceptibility Mapping in Gilgit-Baltistan: Leveraging Machine Learning for Risk Assessment</h3>
-        <p class="pub-authors">Nazish Ashfaq, Adnan Khalid, Mohamed Shabir, Aitizaz Ali, <b>Wasim Ahmad</b></p>
-        <p class="pub-venue">International Conference on Decision Aid Sciences and Applications (DASA 2024) · IEEE</p>
-        <p class="tags"><span class="tag">Conference</span></p>
+      <div class="pub">
+        <p class="t">Landslide Susceptibility Mapping in Gilgit-Baltistan: Leveraging Machine Learning for Risk Assessment</p>
+        <p class="a">Nazish Ashfaq, Adnan Khalid, Mohamed Shabir, Aitizaz Ali, <b>Wasim Ahmad</b></p>
+        <p class="v">International Conference on Decision Aid Sciences and Applications (DASA 2024), IEEE</p>
+        <div class="badges"><span class="b ok">Published</span><span class="b">IEEE</span></div>
       </div>
-    </article>
 
-    <div class="reviewer">
-      <p class="sub" style="margin:0">Journal reviewer for</p>
-      <p>Vehicular Communications · IEEE Transactions on Consumer Electronics · Future Generation Computer Systems · Computer Communications · IEEE Access · Ad Hoc Networks</p>
-    </div>
-  </section>
-
-  <section id="education">
-    <h2>Education</h2>
-    <div class="entry">
-      <div class="entry-date">2019–2025</div>
-      <div>
-        <h3>PhD, Computer Science</h3>
-        <p class="where">Nanjing University of Aeronautics and Astronautics, Nanjing, China</p>
-        <p>Research on UAV channel modelling and the Internet of UAV Things for heterogeneous networks.</p>
-      </div>
-    </div>
-    <div class="entry">
-      <div class="entry-date">2016–2018</div>
-      <div>
-        <h3>MS, Computer Science</h3>
-        <p class="where">Xi'an Jiaotong University, Xi'an, China</p>
-        <p>Final grade A. Thesis: Implementation and Performance Analysis of the Layer-3 Redundancy Protocols. Coursework in big data and deep learning, system optimisation, machine learning, and principles of digital communication.</p>
-      </div>
-    </div>
-    <div class="entry">
-      <div class="entry-date">2012–2016</div>
-      <div>
-        <h3>BS, Information Technology</h3>
-        <p class="where">University of Agriculture, Peshawar, Pakistan</p>
-        <p>Final grade A. Thesis: Layer-3 Redundancy. Coursework spanning data structures and algorithms, artificial intelligence, database systems, software engineering, telecommunication systems, linear algebra and system administration.</p>
-      </div>
+      <p class="reviewer"><b>Journal Reviewer for:</b> Vehicular Communications · IEEE Transactions on Consumer Electronics · Future Generation Computer Systems · Computer Communications · IEEE Access · Ad Hoc Networks</p>
     </div>
   </section>
 
   <section id="experience">
-    <h2>Experience</h2>
-    <div class="entry">
-      <div class="entry-date">2020–2022</div>
-      <div>
-        <h3>Teacher</h3>
-        <p class="where">Winsome Education Academy, Hangu, Pakistan</p>
+    <div class="wrap">
+      <h2 class="sec">Experience</h2>
+      <div class="job">
+        <div class="h"><h3>Teacher</h3><span class="yr">2020 – 2022</span></div>
+        <p class="org">Winsome Education Academy, Hangu, Pakistan</p>
         <p>Designed curriculum and taught computing, ran hands-on project work, assessed student progress, supported students individually, integrated classroom technology, and kept parents informed.</p>
       </div>
     </div>
   </section>
 
   <section id="skills">
-    <h2>Skills and tools</h2>
-    <div class="grid grid-2">
-      <div>
-        <div class="skillset">
-          <p class="sub">Programming &amp; Machine Learning</p>
-          <div class="chips"><span>Python</span><span>Machine Learning</span><span>Deep Learning</span><span>Meta-Learning</span></div>
+    <div class="wrap">
+      <h2 class="sec">Skills &amp; Tools</h2>
+      <div class="two" style="margin-top:0">
+        <div>
+          <div class="skillgroup">
+            <p class="subhead">Programming &amp; Machine Learning</p>
+            <div class="chips"><span>Python</span><span>Machine Learning</span><span>Deep Learning</span><span>Meta-Learning</span></div>
+          </div>
+          <div class="skillgroup">
+            <p class="subhead">Communications &amp; Networks</p>
+            <div class="chips"><span>UAV Channel Modelling</span><span>Path Loss Prediction</span><span>Heterogeneous Networks</span><span>Cloud Computing</span><span>IoT Frameworks</span><span>Layer-3 Redundancy</span></div>
+          </div>
         </div>
-        <div class="skillset">
-          <p class="sub">Communications &amp; Networks</p>
-          <div class="chips"><span>UAV Channel Modelling</span><span>Path Loss Prediction</span><span>Heterogeneous Networks</span><span>Cloud Computing</span><span>IoT Frameworks</span><span>Layer-3 Redundancy</span></div>
-        </div>
-      </div>
-      <div>
-        <div class="skillset">
-          <p class="sub">Research &amp; Documentation</p>
-          <div class="chips"><span>LaTeX</span><span>Overleaf</span><span>MS Office</span><span>Visio</span><span>Photoshop</span></div>
-        </div>
-        <div class="skillset">
-          <p class="sub">Modelling &amp; Diagrams</p>
-          <div class="chips"><span>Process</span><span>Activity</span><span>Flowchart</span><span>Use Case</span><span>Class</span><span>ERD</span></div>
-        </div>
-        <div class="skillset">
-          <p class="sub">Languages</p>
-          <div class="langs">
-            <div><span>Pashto</span><span class="lvl">Mother tongue</span></div>
-            <div><span>Urdu</span><span class="lvl">C2 · proficient</span></div>
-            <div><span>English</span><span class="lvl">C1 · proficient</span></div>
-            <div><span>Chinese</span><span class="lvl">A1 · basic</span></div>
+        <div>
+          <div class="skillgroup">
+            <p class="subhead">Research &amp; Documentation</p>
+            <div class="chips"><span>LaTeX</span><span>Overleaf</span><span>MS Office</span><span>Visio</span><span>Photoshop</span></div>
+          </div>
+          <div class="skillgroup">
+            <p class="subhead">Modelling &amp; Diagrams</p>
+            <div class="chips"><span>Process</span><span>Activity</span><span>Flowchart</span><span>Use Case</span><span>Class</span><span>ERD</span></div>
+          </div>
+          <div class="skillgroup">
+            <p class="subhead">Languages</p>
+            <div class="langrow"><span>Pashto</span><span class="lv">Mother tongue</span></div>
+            <div class="langrow"><span>Urdu</span><span class="lv">C2 · Proficient</span></div>
+            <div class="langrow"><span>English</span><span class="lv">C1 · Proficient</span></div>
+            <div class="langrow"><span>Chinese</span><span class="lv">A1 · Basic</span></div>
           </div>
         </div>
       </div>
@@ -432,56 +377,79 @@ footer{
   </section>
 
   <section id="awards">
-    <h2>Awards and activities</h2>
-    <div class="grid grid-2">
-      <div>
-        <p class="sub">Awards and scholarships</p>
-        <ul class="plain">
-          <li>Best paper presentation, MECON 2025<span class="note">Multimedia University, Malaysia · July 2025</span></li>
-          <li>Presidential Scholarship<span class="note">Xi'an Jiaotong University, China · 2016</span></li>
-        </ul>
-        <p class="sub" style="margin-top:2rem">Volunteering</p>
-        <ul class="plain">
-          <li>Summer Camp programme<span class="note">Xi'an Jiaotong University · July 2018</span></li>
-        </ul>
-      </div>
-      <div>
-        <p class="sub">Conferences</p>
-        <ul class="plain">
-          <li>MECON 2025, Multimedia University<span class="note">Malaysia · July 2025 · presented</span></li>
-          <li>WCCCT 2024, IEEE co-sponsored<span class="note">Chengdu, China · April 2024 · presented</span></li>
-        </ul>
-        <p class="sub" style="margin-top:2rem">Certifications</p>
-        <ul class="plain">
-          <li>Certificate of Achievement, MECON 2025</li>
-          <li>Conference Certificate, WCCCT 2024</li>
-          <li>Silk Road Certificate</li>
-          <li>Big Data Course Workshop</li>
-        </ul>
+    <div class="wrap">
+      <h2 class="sec">Awards &amp; Activities</h2>
+      <div class="two" style="margin-top:0">
+        <div>
+          <p class="subhead">Awards &amp; Scholarships</p>
+          <ul class="stars">
+            <li>Best Paper Presentation, MECON 2025<span class="n">Multimedia University, Malaysia · July 2025</span></li>
+            <li>Presidential Scholarship<span class="n">Xi'an Jiaotong University, China · 2016</span></li>
+          </ul>
+          <p class="subhead" style="margin-top:26px">Volunteering</p>
+          <ul class="stars">
+            <li>Summer Camp Programme<span class="n">Xi'an Jiaotong University · July 2018</span></li>
+          </ul>
+        </div>
+        <div>
+          <p class="subhead">Conferences</p>
+          <ul class="stars">
+            <li>MECON 2025, Multimedia University<span class="n">Malaysia · July 2025 · Presented</span></li>
+            <li>WCCCT 2024, IEEE Co-Sponsored<span class="n">Chengdu, China · April 2024 · Presented</span></li>
+          </ul>
+          <p class="subhead" style="margin-top:26px">Certifications</p>
+          <ul class="stars">
+            <li>Certificate of Achievement, MECON 2025</li>
+            <li>Conference Certificate, WCCCT 2024</li>
+            <li>Silk Road Certificate</li>
+            <li>Big Data Course Workshop</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="contact">
-    <h2>Contact</h2>
-    <p class="lede">Open to postdoctoral positions and research collaboration in UAV communications and applied machine learning.</p>
-    <p class="contact-links">
-      <a href="mailto:wasimktk88@gmail.com">wasimktk88@gmail.com</a>
-      <a href="mailto:wasimktk999@nuaa.edu.cn">wasimktk999@nuaa.edu.cn</a>
-    </p>
-    <p class="contact-links" style="margin-top:1rem">
-      <a href="https://scholar.google.com/citations?user=Ht6afhsAAAAJ&amp;hl=en">Google Scholar</a>
-      <a href="https://www.linkedin.com/in/dr-wasim-ahmad-8b0813304/">LinkedIn</a>
-      <a href="https://github.com/Wasim-Ahmad">GitHub</a>
-    </p>
-    <p style="color:var(--muted);font-size:.95rem;margin-top:1.5rem;max-width:62ch">References available on request. Away from research I read, travel, and explore new places.</p>
+    <div class="wrap">
+      <h2 class="sec">Contact</h2>
+      <div class="ccards">
+        <div class="ccard">
+          <span class="lb">Email</span>
+          <a class="vl" href="mailto:wasimktk88@gmail.com">wasimktk88@gmail.com</a>
+        </div>
+        <div class="ccard">
+          <span class="lb">University Email</span>
+          <a class="vl" href="mailto:wasimktk999@nuaa.edu.cn">wasimktk999@nuaa.edu.cn</a>
+        </div>
+        <div class="ccard">
+          <span class="lb">Google Scholar</span>
+          <a class="vl" href="https://scholar.google.com/citations?user=Ht6afhsAAAAJ&amp;hl=en">Publications</a>
+        </div>
+        <div class="ccard">
+          <span class="lb">LinkedIn</span>
+          <a class="vl" href="https://www.linkedin.com/in/dr-wasim-ahmad-8b0813304/">Dr. Wasim Ahmad</a>
+        </div>
+        <div class="ccard">
+          <span class="lb">GitHub</span>
+          <a class="vl" href="https://github.com/Wasim-Ahmad">@Wasim-Ahmad</a>
+        </div>
+        <div class="ccard">
+          <span class="lb">Location</span>
+          <span class="vl">Nanjing, China</span>
+        </div>
+      </div>
+      <p class="note">References available on request.</p>
+    </div>
   </section>
 
-  <footer>
-    <span>Wasim Ahmad · Nanjing, China</span>
-    <span>Last updated October 2026</span>
-  </footer>
-
 </main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Wasim Ahmad</span>
+    <span>Last updated October 2026</span>
+  </div>
+</footer>
+
 </body>
 </html>
