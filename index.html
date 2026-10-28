@@ -60,6 +60,16 @@ nav a:hover{color:var(--signal);border-color:var(--signal)}
 
 /* ---------- hero ---------- */
 .hero{padding:4rem 0 0}
+.hero-top{display:flex;flex-direction:column;align-items:flex-start;gap:1.75rem}
+.portrait{
+  width:112px;height:auto;display:block;flex:none;
+  border-radius:3px;border:1px solid var(--rule);
+}
+@media(min-width:48rem){
+  .hero-top{flex-direction:row-reverse;justify-content:space-between;gap:3rem}
+  .portrait{width:172px}
+  .hero-text{flex:1;min-width:0}
+}
 .hero h1{font-size:clamp(3rem,10.5vw,6.5rem);font-weight:400;line-height:.94;letter-spacing:-.025em;margin:0 0 .6rem}
 .hero h1 em{font-style:italic;font-weight:300}
 .role{font-size:1.15rem;color:var(--muted);margin:0 0 1.5rem}
@@ -180,15 +190,20 @@ footer{
 <main class="wrap">
 
   <header class="hero">
-    <h1>Wasim<br><em>Ahmad</em></h1>
-    <p class="role">PhD, Computer Science · Nanjing University of Aeronautics and Astronautics</p>
-    <p class="lede">I model the radio links between drones and the ground, and build the learning systems that run on top of them.</p>
-    <p class="hero-meta">
-      <span>Nanjing, China</span>
-      <a href="https://scholar.google.com/citations?user=Ht6afhsAAAAJ&amp;hl=en">Google Scholar</a>
-      <a href="https://www.linkedin.com/in/dr-wasim-ahmad-8b0813304/">LinkedIn</a>
-      <a href="https://github.com/Wasim-Ahmad">GitHub</a>
-    </p>
+    <div class="hero-top">
+      <img class="portrait" src="photo.jpg" alt="Wasim Ahmad" width="297" height="411">
+      <div class="hero-text">
+        <h1>Wasim<br><em>Ahmad</em></h1>
+        <p class="role">PhD, Computer Science · Nanjing University of Aeronautics and Astronautics</p>
+        <p class="lede">I model the radio links between drones and the ground, and build the learning systems that run on top of them.</p>
+        <p class="hero-meta">
+          <span>Nanjing, China</span>
+          <a href="https://scholar.google.com/citations?user=Ht6afhsAAAAJ&amp;hl=en">Google Scholar</a>
+          <a href="https://www.linkedin.com/in/dr-wasim-ahmad-8b0813304/">LinkedIn</a>
+          <a href="https://github.com/Wasim-Ahmad">GitHub</a>
+        </p>
+      </div>
+    </div>
 
     <svg class="diagram" viewBox="0 0 900 220" role="img" aria-label="A UAV at altitude transmitting to three ground stations over layered terrain">
       <path class="terrain-far" d="M0 180 L90 150 L170 168 L260 132 L350 160 L450 128 L540 158 L640 140 L730 165 L820 142 L900 168 L900 220 L0 220 Z"/>
